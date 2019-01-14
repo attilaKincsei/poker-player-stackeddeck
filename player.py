@@ -3,7 +3,7 @@ class Player:
     VERSION = "0.1"
 
     def betRequest(self, game_state):
-        return 100
+        return 240
 
     def showdown(self, game_state):
         pass
