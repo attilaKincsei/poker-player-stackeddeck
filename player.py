@@ -3,9 +3,9 @@ import sys
 from collections import namedtuple
 
 
-def place_bet(game_state):
-    card1 = None
-    card2 = None
+def check_bad_card(game_state):
+    good_card_list = ["10", "J", "K", "Q", "A"]
+    is_fold = True
     for player in game_state["players"]:
         if player["name"] == "StackedDeck" and player.get("hole_cards") is \
                 not None:
@@ -13,18 +13,32 @@ def place_bet(game_state):
             card1_suit = player.get("hole_cards")[0]["suit"]
             card2_rank = player["hole_cards"][1]["rank"]
             card2_suit = player["hole_cards"][1]["suit"]
-        else:
-            card1_rank = None
-            card1_suit = None
-            card2_rank = None
-            card2_suit = None
 
-    # bet = int(game_state["current_buy_in"]) + int(game_state["minimum_raise"])
+            if card2_rank == card1_rank:
+                is_fold = False
 
+            if card1_rank in good_card_list and card2_rank in good_card_list:
+                is_fold = False
+
+        # else:
+        #     card1_rank = None
+        #     card1_suit = None
+        #     card2_rank = None
+        #     card2_suit = None
+    return is_fold
+
+
+def place_bet(game_state):
+    is_Fold = check_bad_card(game_state)
     if game_state["bet_index"] == 0:
         bet = int(game_state["current_buy_in"])
     else:
         bet = int(game_state["current_buy_in"]) + int(game_state["minimum_raise"])
+
+    if not is_Fold:
+       bet = 0
+
+
     return bet
 
 
@@ -36,6 +50,7 @@ class Player:
                          "WORKS ------------------")
         bet = 1000
         try:
+            sys.stderr.write("SD new round")
             bet = place_bet(game_state)
         except:
             bet = 1000
