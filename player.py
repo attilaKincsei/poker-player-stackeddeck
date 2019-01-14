@@ -9,7 +9,7 @@ class Player:
         sys.stderr.write("-------------------- STANDARD ERROR "
                          "WORKS ------------------")
         sys.stderr.write(game_state["players"])
-        return 10
+        return 310
 
     def showdown(self, game_state):
         pass
