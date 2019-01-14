@@ -43,7 +43,7 @@ def place_bet(game_state):
 
 
 class Player:
-    VERSION = "0.2.1"
+    VERSION = "0.3.1"
 
     def betRequest(self, game_state):
         sys.stderr.write("-------------------- STANDARD ERROR "
