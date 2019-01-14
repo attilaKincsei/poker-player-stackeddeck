@@ -3,7 +3,7 @@ import sys
 
 
 def check_bad_card(game_state):
-    good_card_list = ["10", "J", "K", "Q", "A"]
+    good_card_list = ["K", "Q", "A"]
     is_fold = True
     for player in game_state["players"]:
         if player["name"] == "StackedDeck":
@@ -60,7 +60,7 @@ def place_bet(game_state):
 
         number_of_active_players = count_active_players(game_state)
         sys.stderr.write("NUMBER OF PLAYERS: %d" % number_of_active_players)
-        if number_of_active_players == 3 and int(game_state["pot"]) <= (int(game_state["small_blind"]) * 3) :
+        if number_of_active_players == 3 and int(game_state["pot"]) <= (int(game_state["small_blind"]) * 5):
             bet = int(game_state["current_buy_in"]) + int(
                     game_state["minimum_raise"])
 
@@ -96,7 +96,7 @@ def place_bet(game_state):
 
 
 class Player:
-    VERSION = "0.3.4"
+    VERSION = "0.4.1"
 
     def betRequest(self, game_state):
 
