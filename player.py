@@ -42,6 +42,10 @@ def count_out_players(game_state):
 
 
 def place_bet(game_state):
+
+    if int(game_state["round"]) < 5:
+        return 0
+
     if game_state["bet_index"] == 0:
         bet = int(game_state["current_buy_in"])
     else:
@@ -68,7 +72,7 @@ def place_bet(game_state):
 
 
 class Player:
-    VERSION = "0.3.3"
+    VERSION = "0.3.4"
 
     def betRequest(self, game_state):
 
