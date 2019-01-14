@@ -28,14 +28,31 @@ def check_bad_card(game_state):
     return is_fold
 
 
+def count_out_players(game_state):
+    status_codes = []
+    for player in game_state["players"]:
+        status_code = player["status"]
+        status_codes.append(status_code)
+    counter = 0
+    for status in status_codes:
+        if status == "out":
+            counter += 1
+
+    return counter
+
 def place_bet(game_state):
-    is_fold = check_bad_card(game_state)
+
     if game_state["bet_index"] == 0:
         bet = int(game_state["current_buy_in"])
     else:
-        bet = int(game_state["current_buy_in"]) + int(
-            game_state["minimum_raise"])
+        if int(game_state["minimum_raise"]) > 400:
+            bet = int(game_state["current_buy_in"]) + int(
+                game_state["minimum_raise"])
+        else:
+            bet = int(game_state["current_buy_in"]) + 400
 
+    number_of_out_players = count_out_players(game_state)
+    is_fold = check_bad_card(game_state)
     if is_fold:
         bet = 0
 
@@ -43,7 +60,7 @@ def place_bet(game_state):
 
 
 class Player:
-    VERSION = "0.3.1"
+    VERSION = "0.3.3"
 
     def betRequest(self, game_state):
         sys.stderr.write("-------------------- STANDARD ERROR "
