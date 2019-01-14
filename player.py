@@ -3,7 +3,7 @@ import sys
 
 
 def check_bad_card(game_state):
-    good_card_list = ["K", "Q", "A"]
+    good_card_list = ["10", "J", "K", "Q", "A"]
     is_fold = True
     for player in game_state["players"]:
         if player["name"] == "StackedDeck":
