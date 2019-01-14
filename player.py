@@ -22,7 +22,7 @@ def place_bet(game_state):
     # bet = int(game_state["current_buy_in"]) + int(game_state["minimum_raise"])
 
     if game_state["bet_index"] == 0:
-        bet = int(game_state["minimum_raise"])
+        bet = int(game_state["current_buy_in"])
     else:
         bet = int(game_state["current_buy_in"]) + int(game_state["minimum_raise"])
     return bet
