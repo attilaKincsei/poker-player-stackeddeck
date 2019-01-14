@@ -35,7 +35,7 @@ def count_out_players(game_state):
 
 
 def place_bet(game_state):
-    return 0
+
     if int(game_state["round"]) < 5:
         return 0
 
