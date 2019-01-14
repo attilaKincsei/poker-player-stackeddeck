@@ -28,15 +28,13 @@ def count_out_players(game_state):
         status_codes.append(status_code)
     counter = 0
     for status in status_codes:
-        if status == "active" and status == "folded":
+        if status == "active" or status == "folded":
             counter += 1
 
     return counter
 
 
 def place_bet(game_state):
-
-
 
     if int(game_state["round"]) < 5:
         return 0
