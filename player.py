@@ -35,7 +35,7 @@ def count_out_players(game_state):
         status_codes.append(status_code)
     counter = 0
     for status in status_codes:
-        if status == "out":
+        if status == "active":
             counter += 1
 
     return counter
@@ -55,8 +55,9 @@ def place_bet(game_state):
     if is_fold:
         bet = 0
 
-    number_of_out_players = count_out_players(game_state)
-    if number_of_out_players > 2:
+    number_of_active_players = count_out_players(game_state)
+    sys.stderr.write("NUMBER OF PLAYERS: %d" % number_of_active_players)
+    if number_of_active_players < 4:
         if int(game_state["minimum_raise"]) > 400:
             bet = int(game_state["current_buy_in"]) + int(
                 game_state["minimum_raise"])
@@ -70,9 +71,7 @@ class Player:
     VERSION = "0.3.3"
 
     def betRequest(self, game_state):
-        sys.stderr.write("-------------------- STANDARD ERROR "
-                         "WORKS ------------------")
-        bet = 1000
+
         try:
             sys.stderr.write("SD new round")
             bet = place_bet(game_state)
