@@ -59,7 +59,7 @@ def place_bet(game_state):
             bet = 0
 
         number_of_active_players = count_active_players(game_state)
-        sys.stderr.write("NUMBER OF PLAYERS: %d" % number_of_active_players)
+        sys.stderr.write("NUMBER OF ACTIVE PLAYERS: %d" % number_of_active_players)
         if number_of_active_players == 3 and int(game_state["pot"]) <= (int(game_state["small_blind"]) * 5):
             bet = int(game_state["current_buy_in"]) + int(
                     game_state["minimum_raise"])
