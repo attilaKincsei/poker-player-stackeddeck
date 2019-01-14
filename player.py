@@ -40,8 +40,8 @@ def count_out_players(game_state):
 
     return counter
 
-def place_bet(game_state):
 
+def place_bet(game_state):
     if game_state["bet_index"] == 0:
         bet = int(game_state["current_buy_in"])
     else:
@@ -51,10 +51,17 @@ def place_bet(game_state):
         else:
             bet = int(game_state["current_buy_in"]) + 400
 
-    number_of_out_players = count_out_players(game_state)
     is_fold = check_bad_card(game_state)
     if is_fold:
         bet = 0
+
+    number_of_out_players = count_out_players(game_state)
+    if number_of_out_players > 2:
+        if int(game_state["minimum_raise"]) > 400:
+            bet = int(game_state["current_buy_in"]) + int(
+                game_state["minimum_raise"])
+        else:
+            bet = int(game_state["current_buy_in"]) + 400
 
     return bet
 
