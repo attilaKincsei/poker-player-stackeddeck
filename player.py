@@ -36,8 +36,8 @@ def place_bet(game_state):
         bet = int(game_state["current_buy_in"]) + int(
             game_state["minimum_raise"])
 
-    # if not is_fold:
-    #     bet = 0
+    if is_fold:
+        bet = 0
 
     return bet
 
