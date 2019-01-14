@@ -28,33 +28,71 @@ def count_out_players(game_state):
         status_codes.append(status_code)
     counter = 0
     for status in status_codes:
-        if status == "out":
+        if status == "active" or status == "folded":
+            counter += 1
+
+    return counter
+
+def count_active_players(game_state):
+    status_codes = []
+    for player in game_state["players"]:
+        status_code = player["status"]
+        status_codes.append(status_code)
+    counter = 0
+    for status in status_codes:
+        if status == "active":
             counter += 1
 
     return counter
 
 
 def place_bet(game_state):
+    testbranch = True
+    if(testbranch):
+        if int(game_state["round"]) < 5:
+            return 0
 
-    if int(game_state["round"]) < 5:
-        return 0
+        bet = int(game_state["current_buy_in"])
 
-    bet = int(game_state["current_buy_in"])
+        is_fold = check_bad_card(game_state)
+        if is_fold:
+            bet = 0
 
-    is_fold = check_bad_card(game_state)
-    if is_fold:
-        bet = 0
-
-    number_of_non_out_players = count_out_players(game_state)
-    sys.stderr.write("NUMBER OF PLAYERS: %d" % number_of_non_out_players)
-    if number_of_non_out_players > 3:
-        if int(game_state["minimum_raise"]) > 400:
+        number_of_active_players = count_active_players(game_state)
+        sys.stderr.write("NUMBER OF PLAYERS: %d" % number_of_active_players)
+        if number_of_active_players == 3 and int(game_state["pot"]) <= (int(game_state["small_blind"]) * 3) :
             bet = int(game_state["current_buy_in"]) + int(
-                game_state["minimum_raise"])
-        else:
-            bet = int(game_state["current_buy_in"]) + 400
+                    game_state["minimum_raise"])
 
-    return bet
+        number_of_non_out_players = count_out_players(game_state)
+        sys.stderr.write("NUMBER OF PLAYERS: %d" % number_of_non_out_players)
+        if number_of_non_out_players < 3:
+            if int(game_state["minimum_raise"]) > 400:
+                bet = int(game_state["current_buy_in"]) + int(
+                    game_state["minimum_raise"])
+            else:
+                bet = int(game_state["current_buy_in"]) + 400
+        return bet
+    else:
+        if int(game_state["round"]) < 5:
+            return 0
+
+        bet = int(game_state["current_buy_in"])
+
+        is_fold = check_bad_card(game_state)
+        if is_fold:
+            bet = 0
+
+        number_of_non_out_players = count_out_players(game_state)
+        sys.stderr.write("NUMBER OF PLAYERS: %d" % number_of_non_out_players)
+        if number_of_non_out_players < 3:
+            if int(game_state["minimum_raise"]) > 400:
+                bet = int(game_state["current_buy_in"]) + int(
+                    game_state["minimum_raise"])
+            else:
+                bet = int(game_state["current_buy_in"]) + 400
+
+        return bet
 
 
 class Player:
