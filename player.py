@@ -65,10 +65,9 @@ def place_bet(game_state):
         sys.stderr.write("NUMBER OF PLAYERS: %d" % number_of_non_out_players)
         if number_of_non_out_players < 3:
             if int(game_state["minimum_raise"]) > 400:
-                bet = int(game_state["current_buy_in"]) + int(
-                    game_state["minimum_raise"])
+                bet = int(game_state["current_buy_in"])
             else:
-                bet = int(game_state["current_buy_in"]) + 400
+                bet = int(game_state["current_buy_in"])
         return bet
     else:
         bet = int(game_state["current_buy_in"])
@@ -81,10 +80,9 @@ def place_bet(game_state):
         sys.stderr.write("NUMBER OF PLAYERS: %d" % number_of_non_out_players)
         if number_of_non_out_players < 3:
             if int(game_state["minimum_raise"]) > 400:
-                bet = int(game_state["current_buy_in"]) + int(
-                    game_state["minimum_raise"])
+                bet = int(game_state["current_buy_in"])
             else:
-                bet = int(game_state["current_buy_in"]) + 400
+                bet = int(game_state["current_buy_in"])
 
         return bet
 
