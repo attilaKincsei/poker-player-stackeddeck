@@ -57,7 +57,7 @@ def place_bet(game_state):
 
     number_of_active_players = count_out_players(game_state)
     sys.stderr.write("NUMBER OF PLAYERS: %d" % number_of_active_players)
-    if number_of_active_players < 4:
+    if number_of_active_players < 3:
         if int(game_state["minimum_raise"]) > 400:
             bet = int(game_state["current_buy_in"]) + int(
                 game_state["minimum_raise"])
