@@ -49,9 +49,6 @@ def count_active_players(game_state):
 def place_bet(game_state):
     testbranch = True
     if(testbranch):
-        if int(game_state["round"]) < 5:
-            return 0
-
         bet = int(game_state["current_buy_in"])
 
         is_fold = check_bad_card(game_state)
@@ -74,9 +71,6 @@ def place_bet(game_state):
                 bet = int(game_state["current_buy_in"]) + 400
         return bet
     else:
-        if int(game_state["round"]) < 5:
-            return 0
-
         bet = int(game_state["current_buy_in"])
 
         is_fold = check_bad_card(game_state)
