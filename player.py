@@ -1,18 +1,16 @@
 import json
 import sys
-from collections import namedtuple
 
 
 def check_bad_card(game_state):
     good_card_list = ["10", "J", "K", "Q", "A"]
     is_fold = True
     for player in game_state["players"]:
-        if player["name"] == "StackedDeck" and player.get("hole_cards") is \
-                not None:
+        if player["name"] == "StackedDeck":
             card1_rank = player.get("hole_cards")[0]["rank"]
-            card1_suit = player.get("hole_cards")[0]["suit"]
+            # card1_suit = player.get("hole_cards")[0]["suit"]
             card2_rank = player["hole_cards"][1]["rank"]
-            card2_suit = player["hole_cards"][1]["suit"]
+            # card2_suit = player["hole_cards"][1]["suit"]
 
             if card2_rank == card1_rank:
                 is_fold = False
@@ -20,11 +18,6 @@ def check_bad_card(game_state):
             if card1_rank in good_card_list and card2_rank in good_card_list:
                 is_fold = False
 
-        # else:
-        #     card1_rank = None
-        #     card1_suit = None
-        #     card2_rank = None
-        #     card2_suit = None
     return is_fold
 
 
@@ -46,14 +39,7 @@ def place_bet(game_state):
     if int(game_state["round"]) < 5:
         return 0
 
-    if game_state["bet_index"] == 0:
-        bet = int(game_state["current_buy_in"])
-    else:
-        if int(game_state["minimum_raise"]) > 400:
-            bet = int(game_state["current_buy_in"]) + int(
-                game_state["minimum_raise"])
-        else:
-            bet = int(game_state["current_buy_in"]) + 400
+    bet = int(game_state["current_buy_in"])
 
     is_fold = check_bad_card(game_state)
     if is_fold:
